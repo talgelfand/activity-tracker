@@ -1,0 +1,1 @@
+export { getWorkoutData } from './getWorkoutData'
