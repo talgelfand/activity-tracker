@@ -32,7 +32,7 @@ const WorkoutForm = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Enter a short workout description</Form.Label>
             <Form.Control
-              placeholder="Ran for 30 minutes"
+              placeholder="Running for 30 minutes"
               onChange={(event) => setInputValue(event.target.value)}
               isInvalid={error}
             />

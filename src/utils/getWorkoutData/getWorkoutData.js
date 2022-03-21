@@ -1,5 +1,6 @@
 import { API_KEY, API_URL, APP_ID } from '../../api'
 import { formatApiResponse } from '../formatApiResponse'
+import { validateExcerciseData } from './ValidateExcerciseData'
 
 export const getWorkoutData = (query) => {
   if (query === '') throw new Error('Please enter a message')
@@ -28,7 +29,10 @@ export const getWorkoutData = (query) => {
     })
     .then((data) => {
       console.log(data.exercises)
-      return formatApiResponse(data.exercises)
+      if (validateExcerciseData(query, data.exercises)) {
+        return formatApiResponse(data.exercises)
+      }
+      return 'Seems like you entered incorrect activity'
     })
 
   return responseData
