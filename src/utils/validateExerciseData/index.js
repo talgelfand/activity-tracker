@@ -1,1 +1,1 @@
-export { getWorkoutData } from './getWorkoutData'
+export { validateExerciseData } from './validateExerciseData'
