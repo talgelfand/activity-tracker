@@ -1,4 +1,8 @@
-export const validateExcerciseData = (inputValue, exercise) => {
+export const validateExerciseData = (inputValue, exercise) => {
+    if (exercise[0] === undefined) {
+        return false
+    }
+
     const exerciseName = exercise[0].name;
     const wordArray = inputValue.split(' ');
 
