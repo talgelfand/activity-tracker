@@ -4,7 +4,7 @@ export const validateExerciseData = (inputValue, exercise) => {
     }
 
     const exerciseName = exercise[0].name;
-    const wordArray = inputValue.split(' ');
+    const wordArray = inputValue.toLowerCase().split(' ');
 
     if (wordArray.indexOf(exerciseName) !== -1) {  
         return true
