@@ -1,17 +1,18 @@
-import React from 'react';
+import React from 'react'
+
 import Heading from '../../components/Heading'
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm'
-import NavBars from '../../components/NavBar/NavBar';
+import NavBars from '../NavBar/NavBar'
 
-function Home () {
-
+const Profile = (props) => {
   return (
     <>
-      <NavBars />
+      <NavBars></NavBars>
+      <h4>{'Welcome ' + props.email}</h4>
       <Heading />
       <WorkoutForm />
     </>
   );
 }
 
-export default Home
+export default Profile
