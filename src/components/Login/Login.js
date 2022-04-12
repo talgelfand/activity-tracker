@@ -1,42 +1,42 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
-import InputControl from "../InputControl/InputControl";
-import { auth } from "../../firebase";
+import InputControl from '../InputControl/InputControl'
+import { auth } from '../../firebase'
 
-import styles from "./Login.module.css";
+import styles from './Login.module.css'
 
 function Login() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [values, setValues] = useState({
-    email: "",
-    pass: "",
-  });
-  const [errorMsg, setErrorMsg] = useState("");
-  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+    email: '',
+    pass: '',
+  })
+  const [errorMsg, setErrorMsg] = useState('')
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
   const handleSubmission = () => {
     if (!values.email || !values.pass) {
-      setErrorMsg("Fill all fields");
-      return;
+      setErrorMsg('Fill all fields')
+      return
     }
-    setErrorMsg("");
+    setErrorMsg('')
 
-    setSubmitButtonDisabled(true);
+    setSubmitButtonDisabled(true)
     signInWithEmailAndPassword(auth, values.email, values.pass)
       .then(async (res) => {
-        setSubmitButtonDisabled(false);
-        
-        navigate("/profile");
+        setSubmitButtonDisabled(false)
+
+        navigate('/profile')
       })
       .catch((err) => {
-        setSubmitButtonDisabled(false);
-        if (err.message = "Firebase: Error (auth/invalid-email).") {
-            setErrorMsg("Entered credentials are invalid!")
+        setSubmitButtonDisabled(false)
+        if ((err.message = 'Firebase: Error (auth/invalid-email).')) {
+          setErrorMsg('Entered credentials are invalid!')
         }
-      });
-  };
+      })
+  }
   return (
     <div className={styles.container}>
       <div className={styles.innerBox}>
@@ -49,6 +49,7 @@ function Login() {
           }
           placeholder="Enter email address"
         />
+        {/* TODO: should have the type set to "password" */}
         <InputControl
           label="Password"
           onChange={(event) =>
@@ -63,7 +64,7 @@ function Login() {
             Login
           </button>
           <p>
-            Already have an account?{" "}
+            Already have an account?{' '}
             <span>
               <Link to="/signup">Sign up</Link>
             </span>
@@ -71,7 +72,7 @@ function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
