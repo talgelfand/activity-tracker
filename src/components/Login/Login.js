@@ -49,9 +49,9 @@ function Login() {
           }
           placeholder="Enter email address"
         />
-        {/* TODO: should have the type set to "password" */}
         <InputControl
           label="Password"
+          type = "password"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, pass: event.target.value }))
           }

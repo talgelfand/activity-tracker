@@ -1,7 +1,3 @@
-// TODO: rename this file to Navbar.style.js please
-
-// TODO: remove FaBars as not used
-import { FaBars } from 'react-icons/fa'
 import { NavLink as Link } from 'react-router-dom'
 import styled from 'styled-components'
 

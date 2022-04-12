@@ -64,9 +64,9 @@ function Signup() {
             setValues((prev) => ({ ...prev, email: event.target.value }))
           }
         />
-        {/* TODO: should have the type set to "password" */}
         <InputControl
           label="Password"
+          type="password"
           placeholder="Enter Password"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, pass: event.target.value }))
@@ -92,7 +92,7 @@ function Signup() {
         {/* TODO: please add a placeholder */}
         <InputControl
           label="Height"
-          placeholder="Enter your height"
+          placeholder="Enter your height "
           onChange={(event) =>
             setValues((prev) => ({ ...prev, height: event.target.value }))
           }

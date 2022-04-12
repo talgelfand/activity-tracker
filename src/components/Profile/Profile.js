@@ -8,7 +8,7 @@ const Profile = (props) => {
   return (
     <>
       <NavBars></NavBars>
-      <h4>{'Welcome ' + props.email}</h4>
+      <h4>{props.email ? `Welcome - ${props.email}` : "Login please"}</h4>
       <Heading />
       <WorkoutForm />
     </>

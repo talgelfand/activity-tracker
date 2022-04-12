@@ -1,5 +1,5 @@
 import React from 'react'
-import { Nav, NavLink } from './NavbarElements'
+import { Nav, NavLink } from './Navbar.style'
 
 const NavBars = (props) => {
   return (
