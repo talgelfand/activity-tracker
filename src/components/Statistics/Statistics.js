@@ -8,13 +8,13 @@ import { StatisticsContainer } from './Statistics.style'
 const Statistics = (props) => {
   return (
     <>
-    <NavBars></NavBars>
-    <Heading />
-    <StatisticsContainer>
-      <ChartForm />
-    </StatisticsContainer>
+      <NavBars></NavBars>
+      <Heading />
+      <StatisticsContainer>
+        <ChartForm />
+      </StatisticsContainer>
     </>
-  );
+  )
 }
 
 export default Statistics

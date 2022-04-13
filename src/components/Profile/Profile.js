@@ -8,11 +8,11 @@ const Profile = (props) => {
   return (
     <>
       <NavBars></NavBars>
-      <h4>{props.email ? `Welcome - ${props.email}` : "Login please"}</h4>
+      <h4>{props.email ? `Welcome - ${props.email}` : 'Login please'}</h4>
       <Heading />
       <WorkoutForm />
     </>
-  );
+  )
 }
 
 export default Profile

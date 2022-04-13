@@ -21,14 +21,7 @@ function Signup() {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
   const handleSubmission = () => {
-    if (
-      !values.email ||
-      !values.pass ||
-      !values.gender ||
-      !values.date ||
-      !values.height ||
-      !values.weight
-    ) {
+    if (!values.email || !values.pass || !values.gender || !values.date || !values.height || !values.weight) {
       setErrorMsg('NB! FILL ALL FIELDS PLEASE')
       return
     }
@@ -58,52 +51,40 @@ function Signup() {
         <h1 className={styles.heading}>Sign up</h1>
 
         <InputControl
-          label="Email"
-          placeholder="Enter email address"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, email: event.target.value }))
-          }
+          label='Email'
+          placeholder='Enter email address'
+          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
         />
         <InputControl
-          label="Password"
-          type="password"
-          placeholder="Enter Password"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, pass: event.target.value }))
-          }
+          label='Password'
+          type='password'
+          placeholder='Enter Password'
+          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
         />
         <br></br>
         {/* TODO: I would suggest we make it select input */}
         <InputControl
-          label="Gender"
-          placeholder="Enter your gender"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, gender: event.target.value }))
-          }
+          label='Gender'
+          placeholder='Enter your gender'
+          onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
         />
         {/* TODO: I would suggest we make it calendar input */}
         <InputControl
-          label="Birth date"
-          placeholder="Enter your birth date"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, date: event.target.value }))
-          }
+          label='Birth date'
+          placeholder='Enter your birth date'
+          onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
         />
         {/* TODO: please add a placeholder */}
         <InputControl
-          label="Height"
-          placeholder="Enter your height "
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, height: event.target.value }))
-          }
+          label='Height'
+          placeholder='Enter your height '
+          onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
         />
         {/* TODO: please add a placeholder */}
         <InputControl
-          label="Weight"
-          placeholder="Enter your weight"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, weight: event.target.value }))
-          }
+          label='Weight'
+          placeholder='Enter your weight'
+          onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
         />
         <div className={styles.footer}>
           <b className={styles.error}>{errorMsg}</b>
@@ -113,7 +94,7 @@ function Signup() {
           <p>
             Already have an account?{' '}
             <span>
-              <Link to="/Login">Log in</Link>
+              <Link to='/Login'>Log in</Link>
             </span>
           </p>
         </div>

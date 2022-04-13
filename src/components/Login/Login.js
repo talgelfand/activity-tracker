@@ -43,19 +43,15 @@ function Login() {
         <h1 className={styles.heading}>Login</h1>
 
         <InputControl
-          label="Email"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, email: event.target.value }))
-          }
-          placeholder="Enter email address"
+          label='Email'
+          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+          placeholder='Enter email address'
         />
         <InputControl
-          label="Password"
-          type = "password"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, pass: event.target.value }))
-          }
-          placeholder="Enter Password"
+          label='Password'
+          type='password'
+          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+          placeholder='Enter Password'
         />
 
         <div className={styles.footer}>
@@ -66,7 +62,7 @@ function Login() {
           <p>
             Already have an account?{' '}
             <span>
-              <Link to="/signup">Sign up</Link>
+              <Link to='/signup'>Sign up</Link>
             </span>
           </p>
         </div>
