@@ -1,28 +1,13 @@
-import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import React from 'react'
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Line } from 'react-chartjs-2'
 import { ChartFormWrapper } from './ChartForm.style'
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
- 
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
 const ChartForm = () => {
-  const labels = ['26.04', '27.04', '28.04'];
-  const caloriesData = [300, 600, 500];
+  const labels = ['26.04', '27.04', '28.04']
+  const caloriesData = [300, 600, 500]
 
   const options = {
     responsive: true,
@@ -34,24 +19,30 @@ const ChartForm = () => {
         display: false,
       },
     },
-  };
-  
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+
   const data = {
     labels,
     datasets: [
       {
         data: caloriesData,
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderWidth: 6,
+        pointBorderColor: 'rgba(255, 99, 132, 1)',
+        borderColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)'
       },
     ],
-  };
+  }
 
   return (
-    <div>
-      <ChartFormWrapper>
-        <Bar data={data} options={options} />
-      </ChartFormWrapper>
-    </div>
+    <ChartFormWrapper>
+      <Line data={data} options={options} />
+    </ChartFormWrapper>
   )
 }
 

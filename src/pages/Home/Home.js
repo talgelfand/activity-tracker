@@ -1,17 +1,16 @@
-import React from 'react';
+import React from 'react'
 import Heading from '../../components/Heading'
-import WorkoutForm from '../../components/WorkoutForm/WorkoutForm'
-import NavBars from '../../components/NavBar/NavBar';
+import WorkoutForm from '../../components/WorkoutForm'
+import NavBar from '../../components/NavBar'
 
-function Home () {
-
+function Home() {
   return (
     <>
-      <NavBars />
+      <NavBar />
       <Heading />
       <WorkoutForm />
     </>
-  );
+  )
 }
 
 export default Home
