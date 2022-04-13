@@ -2,9 +2,10 @@ import styled from 'styled-components'
 
 export const ChartFormWrapper = styled.div`
   padding: 30px;
-  width: 50%;
+  width: 600px;
+  height: 300px;
   display: flex;
-  margin: auto;
+  margin: 5%;
   margin-top: 70px;
   background-color: #fff;
   border: 1px solid #bebebe;

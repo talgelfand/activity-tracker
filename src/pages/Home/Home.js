@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
 import Heading from '../../components/Heading'
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm'
-import ChartForm from '../../components/ChartForm/ChartForm'
+import NavBars from '../../components/NavBar/NavBar';
 
-const Home = () => {
+function Home () {
+
   return (
     <>
+      <NavBars />
       <Heading />
       <WorkoutForm />
-      <ChartForm />
     </>
-  )
+  );
 }
 
 export default Home
