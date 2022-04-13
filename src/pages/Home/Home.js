@@ -3,7 +3,7 @@ import Heading from '../../components/Heading'
 import WorkoutForm from '../../components/WorkoutForm'
 import NavBar from '../../components/NavBar'
 
-function Home() {
+const Home = () => {
   return (
     <>
       <NavBar />
