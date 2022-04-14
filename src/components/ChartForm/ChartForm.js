@@ -53,9 +53,9 @@ const ChartForm = () => {
       {
         data: caloriesData,
         borderWidth: 6,
-        pointBorderColor: 'rgba(255, 99, 132, 1)',
-        borderColor: 'rgba(255, 99, 132, 0.5)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        pointBorderColor: 'rgb(120, 156, 106)',
+        borderColor: 'rgba(120, 156, 106, 0.5)',
+        backgroundColor: 'rgba(120, 156, 106, 0.5)',
       },
     ],
   }
