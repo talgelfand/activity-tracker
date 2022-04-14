@@ -28,7 +28,6 @@ export const getWorkoutData = (query) => {
       return res.json()
     })
     .then((data) => {
-      console.log(data.exercises)
       if (validateExerciseData(query, data.exercises)) {
         return formatApiResponse(data.exercises)
       }

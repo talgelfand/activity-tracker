@@ -1,13 +1,34 @@
-import React from 'react'
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import React, { useEffect, useState } from 'react'
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { ChartFormWrapper } from './ChartForm.style'
+import fetchActivitiesFromDatabase from '../../firebase/utils/fetchActivitiesFromDatabase'
+import { auth } from '../../firebase/config'
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const ChartForm = () => {
-  const labels = ['26.04', '27.04', '28.04']
-  const caloriesData = [300, 600, 500]
+  const currentUser = auth.currentUser
+
+  const [labels, setLabels] = useState([])
+  const [caloriesData, setCaloriesData] = useState([])
+
+  useEffect(() => {
+    fetchActivitiesFromDatabase(currentUser.email).then((res) => {
+      const chartData = {
+        labels: [],
+        calories: [],
+      }
+
+      res.activities.forEach((activity) => {
+        chartData.calories.push(activity.calories)
+        chartData.labels.push(activity.currentDate)
+      })
+
+      setLabels(chartData.labels)
+      setCaloriesData(chartData.calories)
+    })
+  }, [])
 
   const options = {
     responsive: true,
@@ -21,9 +42,9 @@ const ChartForm = () => {
     },
     scales: {
       y: {
-        beginAtZero: true
-      }
-    }
+        beginAtZero: true,
+      },
+    },
   }
 
   const data = {
@@ -34,7 +55,7 @@ const ChartForm = () => {
         borderWidth: 6,
         pointBorderColor: 'rgba(255, 99, 132, 1)',
         borderColor: 'rgba(255, 99, 132, 0.5)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)'
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
     ],
   }

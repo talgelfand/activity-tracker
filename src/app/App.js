@@ -6,7 +6,7 @@ import Signup from '../components/Signup'
 import Profile from '../components/Profile'
 import Statistics from '../components/Statistics'
 
-import { auth } from '../firebase'
+import { auth } from '../firebase/config'
 
 function App() {
   const [userEmail, setUserEmail] = useState('')

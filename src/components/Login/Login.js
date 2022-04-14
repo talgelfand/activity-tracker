@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
 import InputControl from '../InputControl/InputControl'
-import { auth } from '../../firebase'
+import { auth } from '../../firebase/config'
 
 import styles from './Login.module.css'
 
@@ -25,7 +25,7 @@ function Login() {
 
     setSubmitButtonDisabled(true)
     signInWithEmailAndPassword(auth, values.email, values.pass)
-      .then(async (res) => {
+      .then(async () => {
         setSubmitButtonDisabled(false)
 
         navigate('/profile')
