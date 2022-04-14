@@ -6,7 +6,7 @@ import Signup from '../components/Signup'
 import Profile from '../components/Profile'
 import Statistics from '../components/Statistics'
 
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { auth } from '../firebase/config'

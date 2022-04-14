@@ -1,18 +1,22 @@
 import React from 'react'
 
-import Heading from '../Heading'
 import NavBar from '../NavBar'
-import ChartForm from '../ChartForm'
-import { StatisticsContainer } from './Statistics.style'
+import ActivitiesChart from '../ActivitiesChart'
+import ActivitiesTable from '../ActivitiesTable'
+import { Tab, Tabs } from 'react-bootstrap'
 
-const Statistics = (props) => {
+const Statistics = () => {
   return (
     <>
       <NavBar />
-      <Heading />
-      <StatisticsContainer>
-        <ChartForm />
-      </StatisticsContainer>
+      <Tabs defaultActiveKey='chart' id='statistics-tabs' className='mb-3 mt-3 justify-content-center'>
+        <Tab eventKey='chart' title='Chart'>
+          <ActivitiesChart />
+        </Tab>
+        <Tab eventKey='table' title='Table'>
+          <ActivitiesTable />
+        </Tab>
+      </Tabs>
     </>
   )
 }
