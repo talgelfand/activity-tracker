@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { FormWrapper } from './WorkoutForm.style'
 import { getWorkoutData } from '../../utils/getWorkoutData'
+import addActivityToDatabase from '../../firebase/utils/addActivityToDatabase/addActivityToDatabase'
+import { auth } from '../../firebase/config'
 
 const WorkoutForm = () => {
+  const currentUser = auth.currentUser
+
   const [workoutData, setWorkoutData] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [error, setError] = useState(false)
@@ -12,11 +16,19 @@ const WorkoutForm = () => {
     try {
       getWorkoutData(inputValue).then((res) => {
         setWorkoutData(res)
+
+        addActivityToDatabase(currentUser.email, res[0])
+          .then(() => {
+            console.log('Activity added to the database')
+          })
+          .catch((error) => {
+            console.error(error)
+          })
       })
       setError(false)
-    } catch (e) {
+    } catch (error) {
       setError(true)
-      console.error(e)
+      console.error(error)
     }
   }
 
@@ -41,10 +53,6 @@ const WorkoutForm = () => {
           </Button>
         </Form>
       </FormWrapper>
-      <div className='mt-5' style={{ textAlign: 'center' }}>
-        <h2>Data from API (temporary displayed here)</h2>
-        <p>{JSON.stringify(workoutData)}</p>
-      </div>
     </>
   )
 }

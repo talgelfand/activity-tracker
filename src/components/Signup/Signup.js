@@ -3,7 +3,8 @@ import styles from './Signup.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth } from '../../firebase'
+import { auth } from '../../firebase/config'
+import addUserToDatabase from '../../firebase/utils/addUserToDatabase'
 
 import InputControl from '../InputControl/InputControl'
 
@@ -20,7 +21,7 @@ function Signup() {
   const [errorMsg, setErrorMsg] = useState('')
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
-  const handleSubmission = () => {
+  const handleSubmission = async () => {
     if (!values.email || !values.pass || !values.gender || !values.date || !values.height || !values.weight) {
       setErrorMsg('NB! FILL ALL FIELDS PLEASE')
       return
@@ -28,7 +29,7 @@ function Signup() {
     setErrorMsg('')
 
     setSubmitButtonDisabled(true)
-    createUserWithEmailAndPassword(auth, values.email, values.pass)
+    await createUserWithEmailAndPassword(auth, values.email, values.pass)
       .then(async (res) => {
         setSubmitButtonDisabled(false)
         const user = res.user
@@ -42,6 +43,15 @@ function Signup() {
         if ((err.message = 'Firebase: Error (auth/invalid-email).')) {
           setErrorMsg('Entered credentials are invalid!')
         }
+      })
+
+    // Create a new document in the database (Firebase)
+    addUserToDatabase(values.email)
+      .then(() => {
+        console.log('User added to the database')
+      })
+      .catch((error) => {
+        console.error(error)
       })
   }
 
