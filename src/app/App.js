@@ -6,6 +6,9 @@ import Signup from '../components/Signup'
 import Profile from '../components/Profile'
 import Statistics from '../components/Statistics'
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import { auth } from '../firebase/config'
 
 function App() {
@@ -20,15 +23,18 @@ function App() {
   }, [])
 
   return (
-    <Router>
-      <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/statistics' element={<Statistics />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/profile' element={<Profile email={userEmail} />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/statistics' element={<Statistics />} />
+          <Route path='/profile' element={<Profile email={userEmail} />} />
+        </Routes>
+      </Router>
+      <ToastContainer />
+    </>
   )
 }
 
