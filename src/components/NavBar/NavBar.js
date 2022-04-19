@@ -5,11 +5,9 @@ const NavBar = (props) => {
   return (
     <>
       <Nav>
-        <NavLink to='/login' activeStyle>
-          Login
-        </NavLink>
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/statistics'>Statistics</NavLink>
+        <NavLink to='/login' activeStyle>Login</NavLink>
         <NavLink to='/signup'>SignUp</NavLink>
         {/* TODO: there's a logout function in firebase - can you implement please? */}
         <NavLink to='/login'>LogOut</NavLink>
