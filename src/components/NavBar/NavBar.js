@@ -5,6 +5,7 @@ const NavBars = (props) => {
   return (
     <>
       <Nav>
+        <NavLink to="/">Home</NavLink>
         <NavLink to="/login" activeStyle>
           Login
         </NavLink>
