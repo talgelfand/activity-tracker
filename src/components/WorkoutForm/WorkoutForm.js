@@ -15,7 +15,7 @@ const WorkoutForm = () => {
   const fetchDataFromAPI = () => {
     try {
       getWorkoutData(inputValue).then((res) => {
-        setWorkoutData(res)
+        setWorkoutData(res[0])
 
         addActivityToDatabase(currentUser.email, res[0])
           .then(() => {
