@@ -8,6 +8,16 @@
   justify-content: center;
   align-items: center;
 }
+.name{
+  font-weight: bold;
+}
+.selectGender{
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  outline: none;
+  padding: 10px 15px;
+  color: #000;
+}
 
 .innerBox {
   min-width: 780px;

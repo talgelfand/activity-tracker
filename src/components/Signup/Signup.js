@@ -84,16 +84,14 @@ function Signup() {
           placeholder='Enter your birth date'
           onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
         />
-        {/* TODO: please add a placeholder */}
         <InputControl
           label='Height'
-          placeholder='Enter your height '
+          placeholder='185'
           onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
         />
-        {/* TODO: please add a placeholder */}
         <InputControl
           label='Weight'
-          placeholder='Enter your weight'
+          placeholder='80'
           onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
         />
         <div className={styles.footer}>
