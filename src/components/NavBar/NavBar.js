@@ -21,14 +21,13 @@ const NavBar = () => {
       <Nav>
         <NavLink to='/'>Home</NavLink>
         {currentUser && <NavLink to='/statistics'>Statistics</NavLink>}
-        <NavLink to='/login' activeStyle>
+        {!currentUser &&<NavLink to='/login' activeStyle>
           Login
-        </NavLink>
-        <NavLink to='/signup'>SignUp</NavLink>
-        {/* TODO: there's a logout function in firebase - can you implement please? */}
-        <NavLink to='/' onClick={logOut()}>
+        </NavLink>}
+        {!currentUser && <NavLink to='/signup'>SignUp</NavLink>}
+        {currentUser && <NavLink to='/' onClick={logOut}>
           LogOut
-        </NavLink>
+        </NavLink>}
       </Nav>
     </>
   )
