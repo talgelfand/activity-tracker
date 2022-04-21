@@ -1,7 +1,7 @@
 /* TODO: rewrite to use styled-components */
 .container {
   height: 100%;
-  min-height: 100vh;
+  min-height: 94vh;
   width: 100%;
   background: linear-gradient(to right, #556b2f, #8fbc8f);
   display: flex;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './Signup.module.css'
 import { Link, useNavigate } from 'react-router-dom'
+import NavBar from '../../components/NavBar'
 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase/config'
@@ -56,58 +57,61 @@ function Signup() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.innerBox}>
-        <h1 className={styles.heading}>Sign up</h1>
+    <>
+      <NavBar />
+      <div className={styles.container}>
+        <div className={styles.innerBox}>
+          <h1 className={styles.heading}>Sign up</h1>
 
-        <InputControl
-          label='Email'
-          placeholder='Enter email address'
-          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-        />
-        <InputControl
-          label='Password'
-          type='password'
-          placeholder='Enter Password'
-          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-        />
-        <br></br>
-        {/* TODO: I would suggest we make it select input */}
-        <InputControl
-          label='Gender'
-          placeholder='Enter your gender'
-          onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
-        />
-        {/* TODO: I would suggest we make it calendar input */}
-        <InputControl
-          label='Birth date'
-          placeholder='Enter your birth date'
-          onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
-        />
-        <InputControl
-          label='Height'
-          placeholder='185'
-          onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
-        />
-        <InputControl
-          label='Weight'
-          placeholder='80'
-          onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
-        />
-        <div className={styles.footer}>
-          <b className={styles.error}>{errorMsg}</b>
-          <button onClick={handleSubmission} disabled={submitButtonDisabled}>
-            Sign up
-          </button>
-          <p>
-            Already have an account?{' '}
-            <span>
+          <InputControl
+            label='Email'
+            placeholder='Enter email address'
+            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+          />
+          <InputControl
+            label='Password'
+            type='password'
+            placeholder='Enter Password'
+            onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+          />
+          <br></br>
+          {/* TODO: I would suggest we make it select input */}
+          <InputControl
+            label='Gender'
+            placeholder='Enter your gender'
+            onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
+          />
+          {/* TODO: I would suggest we make it calendar input */}
+          <InputControl
+            label='Birth date'
+            placeholder='Enter your birth date'
+            onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
+          />
+          <InputControl
+            label='Height'
+            placeholder='185'
+            onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
+          />
+          <InputControl
+            label='Weight'
+            placeholder='80'
+            onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
+          />
+          <div className={styles.footer}>
+            <b className={styles.error}>{errorMsg}</b>
+            <button onClick={handleSubmission} disabled={submitButtonDisabled}>
+              Sign up
+            </button>
+            <p>
+              Already have an account?{' '}
+              <span>
               <Link to='/Login'>Log in</Link>
             </span>
-          </p>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
