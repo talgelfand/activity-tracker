@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import styles from './Signup.module.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { FooterButton, InnerBox, StyledLink, Footer , Container, Error} from './Signup.style'
+import { useNavigate } from 'react-router-dom'
 import NavBar from '../../components/NavBar'
 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
@@ -59,10 +59,9 @@ function Signup() {
   return (
     <>
       <NavBar />
-      <div className={styles.container}>
-        <div className={styles.innerBox}>
-          <h1 className={styles.heading}>Sign up</h1>
-
+      <Container>
+        <InnerBox>
+          <h1>Sign up</h1>
           <InputControl
             label='Email'
             placeholder='Enter email address'
@@ -97,20 +96,20 @@ function Signup() {
             placeholder='80'
             onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
           />
-          <div className={styles.footer}>
-            <b className={styles.error}>{errorMsg}</b>
-            <button onClick={handleSubmission} disabled={submitButtonDisabled}>
+          <Footer>
+            <Error>{errorMsg}</Error>
+            <FooterButton onClick={handleSubmission} disabled={submitButtonDisabled}>
               Sign up
-            </button>
+            </FooterButton>
             <p>
               Already have an account?{' '}
               <span>
-              <Link to='/Login'>Log in</Link>
+              <StyledLink to='/Login'>Log in</StyledLink>
             </span>
             </p>
-          </div>
-        </div>
-      </div>
+          </Footer>
+        </InnerBox>
+      </Container>
     </>
   )
 }
