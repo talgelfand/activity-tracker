@@ -7,6 +7,7 @@ import { auth } from '../../firebase/config'
 import addUserToDatabase from '../../firebase/utils/addUserToDatabase'
 
 import InputControl from '../InputControl/InputControl'
+import { FormControl, FormGroup, FormLabel, FormSelect } from 'react-bootstrap'
 
 function Signup() {
   const navigate = useNavigate()
@@ -60,42 +61,59 @@ function Signup() {
       <div className={styles.innerBox}>
         <h1 className={styles.heading}>Sign up</h1>
 
-        <InputControl
-          label='Email'
-          placeholder='Enter email address'
-          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-        />
-        <InputControl
-          label='Password'
-          type='password'
-          placeholder='Enter Password'
-          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-        />
-        <br></br>
-        {/* TODO: I would suggest we make it select input */}
-        <InputControl
-          label='Gender'
-          placeholder='Enter your gender'
-          onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
-        />
+        {/* WIP */}
+        <FormGroup>
+          <FormLabel>Email</FormLabel>
+          <FormControl
+            placeholder='Enter email address'
+            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <FormLabel>Password</FormLabel>
+          <FormControl
+            placeholder='Enter your password'
+            type='password'
+            onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+          />
+        </FormGroup>
+
+        <hr />
+
+        <FormGroup>
+          <FormLabel>Gender</FormLabel>
+          <FormSelect onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}>
+            <option value='male'>Male</option>
+            <option value='female'>Female</option>
+          </FormSelect>
+        </FormGroup>
+
         {/* TODO: I would suggest we make it calendar input */}
         <InputControl
           label='Birth date'
           placeholder='Enter your birth date'
           onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
         />
-        {/* TODO: please add a placeholder */}
-        <InputControl
-          label='Height'
-          placeholder='Enter your height '
-          onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
-        />
-        {/* TODO: please add a placeholder */}
-        <InputControl
-          label='Weight'
-          placeholder='Enter your weight'
-          onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
-        />
+
+        <FormGroup>
+          <FormLabel>Height</FormLabel>
+          <FormControl
+            placeholder='185'
+            type='number'
+            onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <FormLabel>Weight</FormLabel>
+          <FormControl
+            placeholder='80'
+            type='number'
+            onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
+          />
+        </FormGroup>
+
         <div className={styles.footer}>
           <b className={styles.error}>{errorMsg}</b>
           <button onClick={handleSubmission} disabled={submitButtonDisabled}>
