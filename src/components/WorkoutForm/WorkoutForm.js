@@ -6,9 +6,17 @@ import { getWorkoutData } from '../../utils/getWorkoutData'
 import addActivityToDatabase from '../../firebase/utils/addActivityToDatabase'
 import { auth } from '../../firebase/config'
 import WorkoutResult from '../WorkoutResult'
+import PersonInformationForm from '../PersonInformationForm'
 
 const WorkoutForm = () => {
   const currentUser = auth.currentUser
+
+  const [personInfo, setPersonInfo] = useState({
+    gender: 'Male',
+    age: 25,
+    height: 175,
+    weight: 70,
+  })
 
   const [loading, setLoading] = useState(false)
   const [workoutData, setWorkoutData] = useState()
@@ -28,7 +36,7 @@ const WorkoutForm = () => {
     try {
       setLoading(true)
 
-      getWorkoutData(inputValue).then((res) => {
+      getWorkoutData(inputValue, personInfo).then((res) => {
         setWorkoutData(res[0])
 
         addActivityToDatabase(currentUser.email, res[0])
@@ -57,6 +65,8 @@ const WorkoutForm = () => {
 
   return (
     <>
+      {!currentUser && <PersonInformationForm onInfoChange={setPersonInfo} />}
+      
       <FormWrapper>
         <Form onSubmit={handleSubmit}>
           <Form.Group className='mb-3' controlId='workoutForm'>
