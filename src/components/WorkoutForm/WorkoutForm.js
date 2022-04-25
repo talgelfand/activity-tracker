@@ -5,6 +5,7 @@ import { FormWrapper } from './WorkoutForm.style'
 import { getWorkoutData } from '../../utils/getWorkoutData'
 import addActivityToDatabase from '../../firebase/utils/addActivityToDatabase'
 import { auth } from '../../firebase/config'
+import WorkoutResult from '../WorkoutResult'
 
 const WorkoutForm = () => {
   const currentUser = auth.currentUser
@@ -76,25 +77,10 @@ const WorkoutForm = () => {
         </Form>
       </FormWrapper>
 
-      {/* TODO: move ul to a separate component */}
       {loading ? (
-        <Spinner animation='border' variant='secondary' />
+        <Spinner animation='border' variant='secondary' className='d-block mx-auto mt-5' />
       ) : (
-        workoutData && (
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
-            <ul>
-              <li>
-                <p>Type of workout:</p> {workoutData.name}
-              </li>
-              <li>
-                <p>Duration:</p> {workoutData.duration}
-              </li>
-              <li>
-                <p>Calories:</p> {workoutData.calories}
-              </li>
-            </ul>
-          </div>
-        )
+        workoutData && <WorkoutResult {...workoutData} />
       )}
     </>
   )
