@@ -7,13 +7,12 @@ import { auth } from '../../firebase/config'
 
 const Home = () => {
   const currentUser = auth.currentUser
-  console.log(currentUser)
 
   return (
     <>
       <NavBar />
       <Heading />
-      {currentUser && <PersonInformationForm />}
+      {!currentUser && <PersonInformationForm />}
       <WorkoutForm />
     </>
   )
