@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
 import InputControl from '../InputControl/InputControl'
 import { auth } from '../../firebase/config'
 
 import styles from './Login.module.css'
+import { FooterButton, InnerBox, StyledLink } from './Login.style'
 
 function Login() {
   const navigate = useNavigate()
@@ -39,8 +40,8 @@ function Login() {
   }
   return (
     <div className={styles.container}>
-      <div className={styles.innerBox}>
-        <h1 className={styles.heading}>Login</h1>
+      <InnerBox>
+        <h1>Login</h1>
 
         <InputControl
           label='Email'
@@ -56,17 +57,17 @@ function Login() {
 
         <div className={styles.footer}>
           <b className={styles.error}>{errorMsg}</b>
-          <button disabled={submitButtonDisabled} onClick={handleSubmission}>
+          <FooterButton disabled={submitButtonDisabled} onClick={handleSubmission}>
             Login
-          </button>
+          </FooterButton>
           <p>
             Don't have an account?{' '}
             <span>
-              <Link to='/signup'>Sign up</Link>
+              <StyledLink to='/signup'>Sign up</StyledLink>
             </span>
           </p>
         </div>
-      </div>
+      </InnerBox>
     </div>
   )
 }
