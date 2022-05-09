@@ -15,7 +15,7 @@ export const InnerBox = styled.div`
   min-width: 700px;
   height: fit-content;
   width: fit-content;
-  background-color: #fff;
+  background-color:  #fff;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
   padding: 30px;
   border-radius: 10px;

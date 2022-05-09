@@ -8,8 +8,9 @@ import { auth } from '../../firebase/config'
 import addUserToDatabase from '../../firebase/utils/addUserToDatabase'
 
 import InputControl from '../InputControl/InputControl'
+import { Form } from 'react-bootstrap'
 
-function Signup() {
+function Signup(onChange) {
   const navigate = useNavigate()
   const [values, setValues] = useState({
     email: '',
@@ -56,6 +57,15 @@ function Signup() {
       })
   }
 
+  const genders = [
+    { name: 'Male', value: 'male' },
+    { name: 'Female', value: 'female' },
+  ]
+
+  const handleChange = (event) => {
+    onChange((prev) => ({ ...prev, [event.target.name]: event.target.value }))
+  }
+
   return (
     <>
       <NavBar />
@@ -73,8 +83,7 @@ function Signup() {
             placeholder='Enter Password'
             onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
           />
-          <br></br>
-          {/* TODO: I would suggest we make it select input */}
+
           <InputControl
             label='Gender'
             placeholder='Enter your gender'
