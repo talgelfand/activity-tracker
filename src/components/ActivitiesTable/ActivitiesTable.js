@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { auth } from '../../firebase/config'
-import fetchActivitiesFromDatabase from '../../firebase/utils/fetchActivitiesFromDatabase'
+import fetchUserFromDatabase from '../../firebase/utils/fetchUserFromDatabase'
 import { TableWrapper } from './ActivitiesTable.style'
 
 const ActivitiesTable = () => {
@@ -10,7 +10,7 @@ const ActivitiesTable = () => {
   const [activities, setActivities] = useState([])
 
   useEffect(() => {
-    fetchActivitiesFromDatabase(currentUser.email).then((res) => {
+    fetchUserFromDatabase(currentUser.email).then((res) => {
       const activitiesFromDatabase = []
 
       res.activities.forEach((activity) => {

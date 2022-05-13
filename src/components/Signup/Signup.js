@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FooterButton, InnerBox, StyledLink, Footer , Container, Error} from './Signup.style'
+import { FooterButton, InnerBox, StyledLink, Footer, Container, Error } from './Signup.style'
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../../components/NavBar'
 
@@ -38,6 +38,16 @@ function Signup(onChange) {
         await updateProfile(user, {
           displayName: values.email,
         })
+
+        // Create a new document in the database (Firebase)
+        addUserToDatabase(values.email, values.gender, values.height, values.weight, values.date)
+          .then(() => {
+            console.log('User added to the database')
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+
         navigate('/profile')
       })
       .catch((err) => {
@@ -45,15 +55,6 @@ function Signup(onChange) {
         if ((err.message = 'Firebase: Error (auth/invalid-email).')) {
           setErrorMsg('Entered credentials are invalid!')
         }
-      })
-
-    // Create a new document in the database (Firebase)
-    addUserToDatabase(values.email)
-      .then(() => {
-        console.log('User added to the database')
-      })
-      .catch((error) => {
-        console.error(error)
       })
   }
 
@@ -113,8 +114,8 @@ function Signup(onChange) {
             <p>
               Already have an account?{' '}
               <span>
-              <StyledLink to='/Login'>Log in</StyledLink>
-            </span>
+                <StyledLink to='/Login'>Log in</StyledLink>
+              </span>
             </p>
           </Footer>
         </InnerBox>

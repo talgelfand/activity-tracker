@@ -4,11 +4,10 @@ import Heading from '../../components/Heading'
 import WorkoutForm from '../../components/WorkoutForm/WorkoutForm'
 import NavBar from '../NavBar'
 
-const Profile = (props) => {
+const Profile = () => {
   return (
     <>
       <NavBar />
-      <h4>{props.email ? `Welcome - ${props.email}` : 'Login please'}</h4>
       <Heading />
       <WorkoutForm />
     </>
