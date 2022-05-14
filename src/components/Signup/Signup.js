@@ -93,16 +93,16 @@ function Signup() {
             </Form.Select>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Birth date</Form.Label>
+            <Form.Label>Date of birth</Form.Label>
             <DatePicker
               showMonthDropdown
               showYearDropdown
               dropdownMode="select"
               dateFormat="dd/MM/yyyy"
-              placeholderText='Choose your birth date'
+              placeholderText='Enter your date of birth'
               calendarStartDay={1}
               selected={values.date}
-              onChange={(event) => setValues((prev) => ({ ...prev, date: event }))}
+              onChange={(date) => setValues((prev) => ({ ...prev, date: date }))}
             />
           </Form.Group>
           <Form.Group>
