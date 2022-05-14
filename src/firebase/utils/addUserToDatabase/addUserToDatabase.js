@@ -1,7 +1,9 @@
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../../config'
 
-const addUserToDatabase = async (email, gender, height, weight, dateOfBirth) => {
+const addUserToDatabase = async (userParameters) => {
+  const { email, gender, height, weight, dateOfBirth } = userParameters
+
   await setDoc(doc(db, 'users', email), {
     gender,
     height,

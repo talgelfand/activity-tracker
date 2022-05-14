@@ -16,7 +16,7 @@ function Signup(onChange) {
     email: '',
     pass: '',
     gender: '',
-    date: '',
+    dateOfBirth: '',
     height: '',
     weight: '',
   })
@@ -24,7 +24,7 @@ function Signup(onChange) {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
   const handleSubmission = async () => {
-    if (!values.email || !values.pass || !values.gender || !values.date || !values.height || !values.weight) {
+    if (!values.email || !values.pass || !values.gender || !values.dateOfBirth || !values.height || !values.weight) {
       setErrorMsg('NB! FILL ALL FIELDS PLEASE')
       return
     }
@@ -40,7 +40,7 @@ function Signup(onChange) {
         })
 
         // Create a new document in the database (Firebase)
-        addUserToDatabase(values.email, values.gender, values.height, values.weight, values.date)
+        addUserToDatabase(values)
           .then(() => {
             console.log('User added to the database')
           })
@@ -94,7 +94,7 @@ function Signup(onChange) {
           <InputControl
             label='Birth date'
             placeholder='Enter your birth date'
-            onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
+            onChange={(event) => setValues((prev) => ({ ...prev, dateOfBirth: event.target.value }))}
           />
           <InputControl
             label='Height'
