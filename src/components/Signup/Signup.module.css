@@ -9,6 +9,17 @@
   align-items: center;
 }
 
+.name{
+  font-weight: bold;
+}
+.selectGender{
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  outline: none;
+  padding: 10px 15px;
+  color: #000;
+}
+
 .innerBox {
   min-width: 780px;
   height: fit-content;
@@ -69,4 +80,22 @@
   letter-spacing: 1px;
   font-size: 1rem;
   text-decoration: none;
+}
+.container label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #313131;
+}
+
+.container input {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  outline: none;
+  padding: 10px 15px;
+  color: #000;
+}
+
+.container input:hover {
+  border-color: #ccc;
 }

@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import styles from './Signup.module.css'
 import { Link, useNavigate } from 'react-router-dom'
+import NavBar from '../../components/NavBar'
 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase/config'
 import addUserToDatabase from '../../firebase/utils/addUserToDatabase'
 
-import InputControl from '../InputControl/InputControl'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
+import { Form } from 'react-bootstrap'
 
 function Signup() {
   const navigate = useNavigate()
@@ -20,6 +24,7 @@ function Signup() {
   })
   const [errorMsg, setErrorMsg] = useState('')
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
+  const genders = ['Male', 'Female']
 
   const handleSubmission = async () => {
     if (!values.email || !values.pass || !values.gender || !values.date || !values.height || !values.weight) {
@@ -56,60 +61,79 @@ function Signup() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.innerBox}>
-        <h1 className={styles.heading}>Sign up</h1>
-
-        <InputControl
-          label='Email'
-          placeholder='Enter email address'
-          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-        />
-        <InputControl
-          label='Password'
-          type='password'
-          placeholder='Enter Password'
-          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-        />
-        <br></br>
-        {/* TODO: I would suggest we make it select input */}
-        <InputControl
-          label='Gender'
-          placeholder='Enter your gender'
-          onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
-        />
-        {/* TODO: I would suggest we make it calendar input */}
-        <InputControl
-          label='Birth date'
-          placeholder='Enter your birth date'
-          onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
-        />
-        {/* TODO: please add a placeholder */}
-        <InputControl
-          label='Height'
-          placeholder='Enter your height '
-          onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
-        />
-        {/* TODO: please add a placeholder */}
-        <InputControl
-          label='Weight'
-          placeholder='Enter your weight'
-          onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
-        />
-        <div className={styles.footer}>
-          <b className={styles.error}>{errorMsg}</b>
-          <button onClick={handleSubmission} disabled={submitButtonDisabled}>
-            Sign up
-          </button>
-          <p>
-            Already have an account?{' '}
-            <span>
+    <>
+      <NavBar />
+      <Form className={styles.container}>
+        <div className={styles.innerBox}>
+          <h1 className={styles.heading}>Sign up</h1>
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              placeholder='Enter email address'
+              onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Enter Password'
+              onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
+          <br></br>
+          <Form.Group>
+            <Form.Label>Gender</Form.Label>
+            <Form.Select
+              placeholder='Choose your gender'
+              onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}>
+              {genders.map(option => (
+                <option key={option}>{option}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Birth date</Form.Label>
+            <DatePicker
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+              dateFormat="dd/MM/yyyy"
+              placeholderText='Choose your birth date'
+              calendarStartDay={1}
+              selected={values.date}
+              onChange={(event) => setValues((prev) => ({ ...prev, date: event }))}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Height</Form.Label>
+            <Form.Control
+              placeholder='185'
+              onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Weight</Form.Label>
+            <Form.Control
+              placeholder='80'
+              onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
+          <div className={styles.footer}>
+            <b className={styles.error}>{errorMsg}</b>
+            <button onClick={handleSubmission} disabled={submitButtonDisabled}>
+              Sign up
+            </button>
+            <p>
+              Already have an account?{' '}
+              <span>
               <Link to='/Login'>Log in</Link>
             </span>
-          </p>
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
+      </Form>
+    </>
   )
 }
 
