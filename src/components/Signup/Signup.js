@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import styles from './Signup.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import NavBar from '../../components/NavBar'
 
@@ -11,6 +10,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { Form } from 'react-bootstrap'
+import { FormWrapper, InnerBox, Label, SelectGender, Footer, Error } from './Signup.style'
 
 function Signup() {
   const navigate = useNavigate()
@@ -63,9 +63,9 @@ function Signup() {
   return (
     <>
       <NavBar />
-      <Form className={styles.container}>
-        <div className={styles.innerBox}>
-          <h1 className={styles.heading}>Sign up</h1>
+      <FormWrapper>
+        <InnerBox>
+          <h1>Sign up</h1>
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -85,8 +85,8 @@ function Signup() {
           <Form.Group>
             <Form.Label>Gender</Form.Label>
             <Form.Select
-              placeholder='Choose your gender'
               onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}>
+              <option selected disabled hidden>Choose your gender</option>
               {genders.map(option => (
                 <option key={option}>{option}</option>
               ))}
@@ -119,20 +119,20 @@ function Signup() {
               onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}>
             </Form.Control>
           </Form.Group>
-          <div className={styles.footer}>
-            <b className={styles.error}>{errorMsg}</b>
+          <Footer>
+            <Error>{errorMsg}</Error>
             <button onClick={handleSubmission} disabled={submitButtonDisabled}>
               Sign up
             </button>
             <p>
               Already have an account?{' '}
               <span>
-              <Link to='/Login'>Log in</Link>
-            </span>
+                <Link to='/Login'>Log in</Link>
+              </span>
             </p>
-          </div>
-        </div>
-      </Form>
+          </Footer>
+        </InnerBox>
+      </FormWrapper>
     </>
   )
 }
