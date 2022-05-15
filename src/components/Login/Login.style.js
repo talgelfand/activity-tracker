@@ -1,15 +1,17 @@
-/* TODO: rewrite to use styled-components */
-.container {
+import styled, { css } from 'styled-components'
+import { Link } from 'react-router-dom'
+
+export const Container = styled.div`
   height: 100%;
-  min-height: 94vh;
+  min-height: 95vh;
   width: 100%;
   background: linear-gradient(to right, #556b2f, #8fbc8f);
   display: flex;
   justify-content: center;
   align-items: center;
-}
+`
 
-.innerBox {
+export const InnerBox = styled.div`
   min-width: 480px;
   height: fit-content;
   width: fit-content;
@@ -20,22 +22,9 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-}
+`
 
-.footer {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.footer .error {
-  font-weight: bold;
-  font-size: 0.875rem;
-  color: #ff3300;
-  text-align: left;
-}
-
-.footer button {
+export const FooterButton = styled.button`
   outline: none;
   border: none;
   background-color: #556b2f;
@@ -48,25 +37,33 @@
   transition: 100ms;
   cursor: pointer;
   margin: auto;
-}
+  ${(props) =>
+  props.disabled &&
+  css`
+      background-color: gray !important;
+    `};
+  &:hover {
+    background-color: #8fbc8f;
+  }
+`
 
-.footer button:disabled {
-  background-color: gray !important;
-}
+export const Footer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`
 
-.footer button:hover {
-  background-color: #8fbc8f;
-}
+export const Error = styled.div`
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: #ff3300;
+  text-align: left;
+`
 
-.footer p {
-  font-weight: 700;
-  color: #000;
-}
-
-.footer p span a {
+export const StyledLink = styled(Link)`
   font-weight: bold;
   color: #556b2f;
   letter-spacing: 1px;
   font-size: 1rem;
   text-decoration: none;
-}
+`

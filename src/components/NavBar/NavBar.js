@@ -17,7 +17,6 @@ const NavBar = () => {
   }
 
   const logOut = () => {
-
     signOut(auth)
       .then(() => {
         toast.success('You have logged out!', toastConfig)
@@ -33,7 +32,7 @@ const NavBar = () => {
       <Nav>
         <NavLink to='/'>Home</NavLink>
         {currentUser && <NavLink to='/statistics'>Statistics</NavLink>}
-        {!currentUser &&<NavLink to='/login' activeStyle>
+        {!currentUser && <NavLink to='/login' activeStyle>
           Login
         </NavLink>}
         {!currentUser && <NavLink to='/signup'>SignUp</NavLink>}

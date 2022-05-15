@@ -1,7 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../config'
 
-const fetchActivitiesFromDatabase = async (userEmail) => {
+const fetchUserFromDatabase = async (userEmail) => {
   const docRef = doc(db, 'users', userEmail)
 
   const docSnap = await getDoc(docRef)
@@ -13,4 +13,4 @@ const fetchActivitiesFromDatabase = async (userEmail) => {
   return null
 }
 
-export default fetchActivitiesFromDatabase
+export default fetchUserFromDatabase

@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
-import styles from './Signup.module.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { FooterButton, InnerBox, StyledLink, Footer, Container, Error } from './Signup.style'
+import { useNavigate } from 'react-router-dom'
+import NavBar from '../../components/NavBar'
 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase/config'
 import addUserToDatabase from '../../firebase/utils/addUserToDatabase'
 
 import InputControl from '../InputControl/InputControl'
+import { Form } from 'react-bootstrap'
 
-function Signup() {
+function Signup(onChange) {
   const navigate = useNavigate()
   const [values, setValues] = useState({
     email: '',
     pass: '',
     gender: '',
-    date: '',
+    dateOfBirth: '',
     height: '',
     weight: '',
   })
@@ -22,7 +24,7 @@ function Signup() {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
   const handleSubmission = async () => {
-    if (!values.email || !values.pass || !values.gender || !values.date || !values.height || !values.weight) {
+    if (!values.email || !values.pass || !values.gender || !values.dateOfBirth || !values.height || !values.weight) {
       setErrorMsg('NB! FILL ALL FIELDS PLEASE')
       return
     }
@@ -36,6 +38,16 @@ function Signup() {
         await updateProfile(user, {
           displayName: values.email,
         })
+
+        // Create a new document in the database (Firebase)
+        addUserToDatabase(values)
+          .then(() => {
+            console.log('User added to the database')
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+
         navigate('/profile')
       })
       .catch((err) => {
@@ -44,72 +56,71 @@ function Signup() {
           setErrorMsg('Entered credentials are invalid!')
         }
       })
+  }
 
-    // Create a new document in the database (Firebase)
-    addUserToDatabase(values.email)
-      .then(() => {
-        console.log('User added to the database')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+  const genders = [
+    { name: 'Male', value: 'male' },
+    { name: 'Female', value: 'female' },
+  ]
+
+  const handleChange = (event) => {
+    onChange((prev) => ({ ...prev, [event.target.name]: event.target.value }))
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.innerBox}>
-        <h1 className={styles.heading}>Sign up</h1>
+    <>
+      <NavBar />
+      <Container>
+        <InnerBox>
+          <h1>Sign up</h1>
+          <InputControl
+            label='Email'
+            placeholder='Enter email address'
+            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+          />
+          <InputControl
+            label='Password'
+            type='password'
+            placeholder='Enter Password'
+            onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+          />
 
-        <InputControl
-          label='Email'
-          placeholder='Enter email address'
-          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-        />
-        <InputControl
-          label='Password'
-          type='password'
-          placeholder='Enter Password'
-          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-        />
-        <br></br>
-        {/* TODO: I would suggest we make it select input */}
-        <InputControl
-          label='Gender'
-          placeholder='Enter your gender'
-          onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
-        />
-        {/* TODO: I would suggest we make it calendar input */}
-        <InputControl
-          label='Birth date'
-          placeholder='Enter your birth date'
-          onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
-        />
-        {/* TODO: please add a placeholder */}
-        <InputControl
-          label='Height'
-          placeholder='Enter your height '
-          onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
-        />
-        {/* TODO: please add a placeholder */}
-        <InputControl
-          label='Weight'
-          placeholder='Enter your weight'
-          onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
-        />
-        <div className={styles.footer}>
-          <b className={styles.error}>{errorMsg}</b>
-          <button onClick={handleSubmission} disabled={submitButtonDisabled}>
-            Sign up
-          </button>
-          <p>
-            Already have an account?{' '}
-            <span>
-              <Link to='/Login'>Log in</Link>
-            </span>
-          </p>
-        </div>
-      </div>
-    </div>
+          <InputControl
+            label='Gender'
+            placeholder='Enter your gender'
+            onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
+          />
+          {/* TODO: I would suggest we make it calendar input */}
+          <InputControl
+            label='Birth date'
+            placeholder='Enter your birth date'
+            onChange={(event) => setValues((prev) => ({ ...prev, dateOfBirth: event.target.value }))}
+          />
+          <InputControl
+            label='Height'
+            placeholder='185'
+            onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
+          />
+          <InputControl
+            label='Weight'
+            placeholder='80'
+            onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
+          />
+          <Footer>
+            <Error>{errorMsg}</Error>
+            <FooterButton onClick={handleSubmission} disabled={submitButtonDisabled}>
+              Sign up
+            </FooterButton>
+            <p>
+              Already have an account?{' '}
+              <span>
+                <StyledLink to='/Login'>Log in</StyledLink>
+              </span>
+            </p>
+          </Footer>
+        </InnerBox>
+      </Container>
+    </>
   )
 }
 
