@@ -10,7 +10,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { Form } from 'react-bootstrap'
-import { FormWrapper, InnerBox, Label, SelectGender, Footer, Error } from './Signup.style'
+import { FormWrapper, InnerBox, Footer, Error } from './Signup.style'
 
 function Signup() {
   const navigate = useNavigate()
