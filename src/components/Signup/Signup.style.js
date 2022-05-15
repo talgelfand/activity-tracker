@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
+import { Form } from 'react-bootstrap'
 
 export const Container = styled.div`
   padding: 50px;
@@ -8,6 +9,34 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #313131;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    outline: none;
+    padding: 10px 15px;
+    color: #000;
+  }
+
+  input:hover {
+    border-color: #ccc;
+    outline: 1px solid green;
+  }
+
+  input:focus {
+    border-color: #ccc;
+    outline: 1px solid green;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+  }
 `
 
 export const InnerBox = styled.div`
@@ -20,6 +49,36 @@ export const InnerBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+`
+
+export const FormWrapper = styled(Form)`
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to right, #556b2f, #8fbc8f);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #313131;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    outline: none;
+    padding: 10px 15px;
+    color: #000;
+  }
+
+  input:hover {
+    border-color: #ccc;
+    outline: 1px solid green;
+  }
 `
 
 export const FooterButton = styled.button`

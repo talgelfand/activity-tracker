@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import { FooterButton, InnerBox, StyledLink, Footer, Container, Error } from './Signup.style'
 import { useNavigate } from 'react-router-dom'
+import { FooterButton, InnerBox, StyledLink, Footer, Container, Error } from './Signup.style'
 import NavBar from '../../components/NavBar'
 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase/config'
 import addUserToDatabase from '../../firebase/utils/addUserToDatabase'
 
-import InputControl from '../InputControl/InputControl'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 import { Form } from 'react-bootstrap'
 
 function Signup(onChange) {
@@ -63,49 +65,65 @@ function Signup(onChange) {
     { name: 'Female', value: 'female' },
   ]
 
-  const handleChange = (event) => {
-    onChange((prev) => ({ ...prev, [event.target.name]: event.target.value }))
-  }
-
   return (
     <>
       <NavBar />
       <Container>
         <InnerBox>
           <h1>Sign up</h1>
-          <InputControl
-            label='Email'
-            placeholder='Enter email address'
-            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-          />
-          <InputControl
-            label='Password'
-            type='password'
-            placeholder='Enter Password'
-            onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-          />
-
-          <InputControl
-            label='Gender'
-            placeholder='Enter your gender'
-            onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}
-          />
-          {/* TODO: I would suggest we make it calendar input */}
-          <InputControl
-            label='Birth date'
-            placeholder='Enter your birth date'
-            onChange={(event) => setValues((prev) => ({ ...prev, dateOfBirth: event.target.value }))}
-          />
-          <InputControl
-            label='Height'
-            placeholder='185'
-            onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}
-          />
-          <InputControl
-            label='Weight'
-            placeholder='80'
-            onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}
-          />
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              placeholder='Enter email address'
+              onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Enter Password'
+              onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
+          <br></br>
+          <Form.Group>
+            <Form.Label>Gender</Form.Label>
+            <Form.Select
+              onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}>
+              <option selected disabled hidden>Choose your gender</option>
+              {genders.map(option => (
+                <option key={option.name}>{option.name}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Date of birth</Form.Label>
+            <DatePicker
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+              dateFormat="dd/MM/yyyy"
+              placeholderText='Enter your date of birth'
+              calendarStartDay={1}
+              selected={values.date}
+              onChange={(date) => setValues((prev) => ({ ...prev, date: date }))}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Height</Form.Label>
+            <Form.Control
+              placeholder='185'
+              onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Weight</Form.Label>
+            <Form.Control
+              placeholder='80'
+              onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}>
+            </Form.Control>
+          </Form.Group>
           <Footer>
             <Error>{errorMsg}</Error>
             <FooterButton onClick={handleSubmission} disabled={submitButtonDisabled}>
