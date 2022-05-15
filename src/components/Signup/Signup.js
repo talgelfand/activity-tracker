@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FooterButton, InnerBox, StyledLink, Footer , Container, Error} from './Signup.style'
+import { FooterButton, InnerBox, StyledLink, Footer, Container, Error } from './Signup.style'
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../../components/NavBar'
 
@@ -16,7 +16,7 @@ function Signup(onChange) {
     email: '',
     pass: '',
     gender: '',
-    date: '',
+    dateOfBirth: '',
     height: '',
     weight: '',
   })
@@ -24,7 +24,7 @@ function Signup(onChange) {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
   const handleSubmission = async () => {
-    if (!values.email || !values.pass || !values.gender || !values.date || !values.height || !values.weight) {
+    if (!values.email || !values.pass || !values.gender || !values.dateOfBirth || !values.height || !values.weight) {
       setErrorMsg('NB! FILL ALL FIELDS PLEASE')
       return
     }
@@ -38,6 +38,16 @@ function Signup(onChange) {
         await updateProfile(user, {
           displayName: values.email,
         })
+
+        // Create a new document in the database (Firebase)
+        addUserToDatabase(values)
+          .then(() => {
+            console.log('User added to the database')
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+
         navigate('/profile')
       })
       .catch((err) => {
@@ -45,15 +55,6 @@ function Signup(onChange) {
         if ((err.message = 'Firebase: Error (auth/invalid-email).')) {
           setErrorMsg('Entered credentials are invalid!')
         }
-      })
-
-    // Create a new document in the database (Firebase)
-    addUserToDatabase(values.email)
-      .then(() => {
-        console.log('User added to the database')
-      })
-      .catch((error) => {
-        console.error(error)
       })
   }
 
@@ -93,7 +94,7 @@ function Signup(onChange) {
           <InputControl
             label='Birth date'
             placeholder='Enter your birth date'
-            onChange={(event) => setValues((prev) => ({ ...prev, date: event.target.value }))}
+            onChange={(event) => setValues((prev) => ({ ...prev, dateOfBirth: event.target.value }))}
           />
           <InputControl
             label='Height'
@@ -113,8 +114,8 @@ function Signup(onChange) {
             <p>
               Already have an account?{' '}
               <span>
-              <StyledLink to='/Login'>Log in</StyledLink>
-            </span>
+                <StyledLink to='/Login'>Log in</StyledLink>
+              </span>
             </p>
           </Footer>
         </InnerBox>

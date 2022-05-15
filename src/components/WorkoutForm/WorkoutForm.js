@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Spinner } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { FormWrapper } from './WorkoutForm.style'
 import { getWorkoutData } from '../../utils/getWorkoutData'
 import addActivityToDatabase from '../../firebase/utils/addActivityToDatabase'
+import fetchUserFromDatabase from '../../firebase/utils/fetchUserFromDatabase'
 import { auth } from '../../firebase/config'
 import WorkoutResult from '../WorkoutResult'
 import PersonInformationForm from '../PersonInformationForm'
@@ -64,6 +65,23 @@ const WorkoutForm = () => {
     fetchDataFromAPI()
     setInputValue('')
   }
+
+  useEffect(() => {
+    if (currentUser) {
+      fetchUserFromDatabase(currentUser.email)
+        .then((res) => {
+          return res
+        })
+        .then((data) => {
+          setPersonInfo({
+            gender: data.gender,
+            age: new Date().getFullYear() - parseInt(data.dateOfBirth.slice(-4)),
+            height: data.height,
+            weight: data.weight,
+          })
+        })
+    }
+  }, [])
 
   return (
     <>

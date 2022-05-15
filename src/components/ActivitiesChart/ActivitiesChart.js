@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { ChartFormWrapper } from './ActivitiesChart.style'
-import fetchActivitiesFromDatabase from '../../firebase/utils/fetchActivitiesFromDatabase'
+import fetchUserFromDatabase from '../../firebase/utils/fetchUserFromDatabase'
 import { auth } from '../../firebase/config'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
@@ -14,7 +14,7 @@ const ChartForm = () => {
   const [caloriesData, setCaloriesData] = useState([])
 
   useEffect(() => {
-    fetchActivitiesFromDatabase(currentUser.email).then((res) => {
+    fetchUserFromDatabase(currentUser.email).then((res) => {
       const chartData = {
         labels: [],
         calories: [],
