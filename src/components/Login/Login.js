@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import NavBar from '../../components/NavBar'
 
 import InputControl from '../InputControl/InputControl'
 import { auth } from '../../firebase/config'
@@ -38,36 +39,38 @@ function Login() {
       })
   }
   return (
-    <div className={styles.container}>
-      <div className={styles.innerBox}>
-        <h1 className={styles.heading}>Login</h1>
+    <>
+      <NavBar />
+      <div className={styles.container}>
+        <div className={styles.innerBox}>
+          <h1 className={styles.heading}>Login</h1>
+          <InputControl
+            label='Email'
+            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+            placeholder='Enter email address'
+          />
+          <InputControl
+            label='Password'
+            type='password'
+            onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+            placeholder='Enter Password'
+          />
 
-        <InputControl
-          label='Email'
-          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-          placeholder='Enter email address'
-        />
-        <InputControl
-          label='Password'
-          type='password'
-          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-          placeholder='Enter Password'
-        />
-
-        <div className={styles.footer}>
-          <b className={styles.error}>{errorMsg}</b>
-          <button disabled={submitButtonDisabled} onClick={handleSubmission}>
-            Login
-          </button>
-          <p>
-            Don't have an account?{' '}
-            <span>
+          <div className={styles.footer}>
+            <b className={styles.error}>{errorMsg}</b>
+            <button disabled={submitButtonDisabled} onClick={handleSubmission}>
+              Login
+            </button>
+            <p>
+              Don't have an account?{' '}
+              <span>
               <Link to='/signup'>Sign up</Link>
             </span>
-          </p>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

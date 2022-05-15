@@ -1,16 +1,45 @@
 import React from 'react'
 import { Nav, NavLink } from './Navbar.style'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase/config'
+import { toast } from 'react-toastify'
 
-const NavBar = (props) => {
+const NavBar = () => {
+  const currentUser = auth.currentUser
+
+  const toastConfig = {
+    position: 'bottom-center',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  }
+
+  const logOut = () => {
+
+    signOut(auth)
+      .then(() => {
+        toast.success('You have logged out!', toastConfig)
+      })
+      .catch((error) => {
+        toast.error('Sorry, an error occured', toastConfig)
+        console.error(error)
+      })
+  }
+
   return (
     <>
       <Nav>
         <NavLink to='/'>Home</NavLink>
-        <NavLink to='/statistics'>Statistics</NavLink>
-        <NavLink to='/login' activeStyle>Login</NavLink>
-        <NavLink to='/signup'>SignUp</NavLink>
-        {/* TODO: there's a logout function in firebase - can you implement please? */}
-        <NavLink to='/login'>LogOut</NavLink>
+        {currentUser && <NavLink to='/statistics'>Statistics</NavLink>}
+        {!currentUser &&<NavLink to='/login' activeStyle>
+          Login
+        </NavLink>}
+        {!currentUser && <NavLink to='/signup'>SignUp</NavLink>}
+        {currentUser && <NavLink to='/' onClick={logOut}>
+          LogOut
+        </NavLink>}
       </Nav>
     </>
   )
