@@ -3,7 +3,7 @@ import { Card, ListGroup } from 'react-bootstrap'
 
 const WorkoutResult = ({ name, duration, calories }) => {
   return (
-    <div className='d-flex justify-content-center mt-3'>
+    <div className='d-flex justify-content-center mt-3 mb-5'>
       <Card style={{ width: '25rem' }}>
         <ListGroup variant='flush'>
           <ListGroup.Item className='d-flex'>

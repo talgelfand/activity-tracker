@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import NavBar from '../../components/NavBar'
 
 import InputControl from '../InputControl/InputControl'
 import { auth } from '../../firebase/config'
 
-import styles from './Login.module.css'
+import { FooterButton, InnerBox, StyledLink, Footer , Container, Error} from './Login.style'
 
 function Login() {
   const navigate = useNavigate()
@@ -38,36 +39,38 @@ function Login() {
       })
   }
   return (
-    <div className={styles.container}>
-      <div className={styles.innerBox}>
-        <h1 className={styles.heading}>Login</h1>
+    <>
+      <NavBar />
+      <Container>
+        <InnerBox>
+          <h1>Login</h1>
+          <InputControl
+            label='Email'
+            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+            placeholder='Enter email address'
+          />
+          <InputControl
+            label='Password'
+            type='password'
+            onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+            placeholder='Enter Password'
+          />
 
-        <InputControl
-          label='Email'
-          onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-          placeholder='Enter email address'
-        />
-        <InputControl
-          label='Password'
-          type='password'
-          onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-          placeholder='Enter Password'
-        />
-
-        <div className={styles.footer}>
-          <b className={styles.error}>{errorMsg}</b>
-          <button disabled={submitButtonDisabled} onClick={handleSubmission}>
-            Login
-          </button>
-          <p>
-            Don't have an account?{' '}
-            <span>
-              <Link to='/signup'>Sign up</Link>
+          <Footer>
+            <Error>{errorMsg}</Error>
+            <FooterButton disabled={submitButtonDisabled} onClick={handleSubmission}>
+              Login
+            </FooterButton>
+            <p>
+              Don't have an account?{' '}
+              <span>
+               <StyledLink to='/signup'>Sign up</StyledLink>
             </span>
-          </p>
-        </div>
-      </div>
-    </div>
+            </p>
+          </Footer>
+        </InnerBox>
+      </Container>
+    </>
   )
 }
 

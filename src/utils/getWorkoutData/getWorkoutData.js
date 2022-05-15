@@ -1,12 +1,10 @@
-import { API_KEY, API_URL, APP_ID } from '../../api'
+import { API_URL } from '../../api'
 import { formatApiResponse } from '../formatApiResponse'
 import { validateExerciseData } from '../validateExerciseData'
 
 export const getWorkoutData = (query, personParameters) => {
   if (query === '') throw new Error('Please enter a message')
 
-  // Temporarily hardcoded
-  // TODO: replace with variables
   const exercisesData = {
     query,
     gender: personParameters.gender,
@@ -19,8 +17,8 @@ export const getWorkoutData = (query, personParameters) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-app-id': APP_ID,
-      'x-app-key': API_KEY,
+      'x-app-id': process.env.REACT_APP_NUTRITIONIX_APP_ID,
+      'x-app-key': process.env.REACT_APP_NUTRITIONIX_API_KEY,
     },
     body: JSON.stringify(exercisesData),
   })

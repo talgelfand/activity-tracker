@@ -5,7 +5,8 @@ export const FormWrapper = styled.div`
   width: 400px;
   display: flex;
   margin: auto;
-  margin-top: 70px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   background-color: #fff;
   border: 1px solid #bebebe;
   border-radius: 4px;

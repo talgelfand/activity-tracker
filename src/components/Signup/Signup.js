@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { FooterButton, InnerBox, StyledLink, Footer, Container, Error } from './Signup.style'
 import NavBar from '../../components/NavBar'
 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
@@ -10,24 +11,22 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { Form } from 'react-bootstrap'
-import { FormWrapper, InnerBox, Footer, Error } from './Signup.style'
 
-function Signup() {
+function Signup(onChange) {
   const navigate = useNavigate()
   const [values, setValues] = useState({
     email: '',
     pass: '',
     gender: '',
-    date: '',
+    dateOfBirth: '',
     height: '',
     weight: '',
   })
   const [errorMsg, setErrorMsg] = useState('')
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
-  const genders = ['Male', 'Female']
 
   const handleSubmission = async () => {
-    if (!values.email || !values.pass || !values.gender || !values.date || !values.height || !values.weight) {
+    if (!values.email || !values.pass || !values.gender || !values.dateOfBirth || !values.height || !values.weight) {
       setErrorMsg('NB! FILL ALL FIELDS PLEASE')
       return
     }
@@ -41,6 +40,16 @@ function Signup() {
         await updateProfile(user, {
           displayName: values.email,
         })
+
+        // Create a new document in the database (Firebase)
+        addUserToDatabase(values)
+          .then(() => {
+            console.log('User added to the database')
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+
         navigate('/profile')
       })
       .catch((err) => {
@@ -49,21 +58,17 @@ function Signup() {
           setErrorMsg('Entered credentials are invalid!')
         }
       })
-
-    // Create a new document in the database (Firebase)
-    addUserToDatabase(values.email)
-      .then(() => {
-        console.log('User added to the database')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
   }
+
+  const genders = [
+    { name: 'Male', value: 'male' },
+    { name: 'Female', value: 'female' },
+  ]
 
   return (
     <>
       <NavBar />
-      <FormWrapper>
+      <Container>
         <InnerBox>
           <h1>Sign up</h1>
           <Form.Group>
@@ -88,7 +93,7 @@ function Signup() {
               onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}>
               <option selected disabled hidden>Choose your gender</option>
               {genders.map(option => (
-                <option key={option}>{option}</option>
+                <option key={option.name}>{option.name}</option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -121,18 +126,18 @@ function Signup() {
           </Form.Group>
           <Footer>
             <Error>{errorMsg}</Error>
-            <button onClick={handleSubmission} disabled={submitButtonDisabled}>
+            <FooterButton onClick={handleSubmission} disabled={submitButtonDisabled}>
               Sign up
-            </button>
+            </FooterButton>
             <p>
               Already have an account?{' '}
               <span>
-                <Link to='/Login'>Log in</Link>
+                <StyledLink to='/Login'>Log in</StyledLink>
               </span>
             </p>
           </Footer>
         </InnerBox>
-      </FormWrapper>
+      </Container>
     </>
   )
 }

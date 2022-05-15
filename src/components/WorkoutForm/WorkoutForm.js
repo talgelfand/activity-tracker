@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Spinner } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { FormWrapper } from './WorkoutForm.style'
 import { getWorkoutData } from '../../utils/getWorkoutData'
 import addActivityToDatabase from '../../firebase/utils/addActivityToDatabase'
+import fetchUserFromDatabase from '../../firebase/utils/fetchUserFromDatabase'
 import { auth } from '../../firebase/config'
 import WorkoutResult from '../WorkoutResult'
 import PersonInformationForm from '../PersonInformationForm'
@@ -12,7 +13,7 @@ const WorkoutForm = () => {
   const currentUser = auth.currentUser
 
   const [personInfo, setPersonInfo] = useState({
-    gender: 'Male',
+    gender: 'male',
     age: 25,
     height: 175,
     weight: 70,
@@ -39,21 +40,23 @@ const WorkoutForm = () => {
       getWorkoutData(inputValue, personInfo).then((res) => {
         setWorkoutData(res[0])
 
-        addActivityToDatabase(currentUser.email, res[0])
-          .then(() => {
-            toast.success('Activity was registered', toastConfig)
-            setLoading(false)
-          })
-          .catch((error) => {
-            toast.error('Sorry, an error occured', toastConfig)
-            console.error(error)
-            setLoading(false)
-          })
+        if (currentUser) {
+          addActivityToDatabase(currentUser.email, res[0])
+            .then(() => {
+              toast.success('Activity was registered', toastConfig)
+            })
+            .catch((error) => {
+              toast.error('Sorry, an error occured', toastConfig)
+              console.error(error)
+            })
+        }
       })
       setError(false)
+      setLoading(false)
     } catch (error) {
       setError(true)
       console.error(error)
+      setLoading(false)
     }
   }
 
@@ -63,10 +66,27 @@ const WorkoutForm = () => {
     setInputValue('')
   }
 
+  useEffect(() => {
+    if (currentUser) {
+      fetchUserFromDatabase(currentUser.email)
+        .then((res) => {
+          return res
+        })
+        .then((data) => {
+          setPersonInfo({
+            gender: data.gender,
+            age: new Date().getFullYear() - parseInt(data.dateOfBirth.slice(-4)),
+            height: data.height,
+            weight: data.weight,
+          })
+        })
+    }
+  }, [])
+
   return (
     <>
-      {!currentUser && <PersonInformationForm onInfoChange={setPersonInfo} />}
-      
+      {!currentUser && <PersonInformationForm onChange={setPersonInfo} />}
+
       <FormWrapper>
         <Form onSubmit={handleSubmit}>
           <Form.Group className='mb-3' controlId='workoutForm'>

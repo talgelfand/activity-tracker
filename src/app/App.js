@@ -30,7 +30,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/statistics' element={<Statistics />} />
-          <Route path='/profile' element={<Profile email={userEmail} />} />
+          <Route path='/profile' element={<Profile />} />
         </Routes>
       </Router>
       <ToastContainer />
