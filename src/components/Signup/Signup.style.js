@@ -2,8 +2,7 @@ import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
-  height: 100%;
-  min-height: 100vh;
+  padding: 50px;
   width: 100%;
   background: linear-gradient(to right, #556b2f, #8fbc8f);
   display: flex;
@@ -13,9 +12,8 @@ export const Container = styled.div`
 
 export const InnerBox = styled.div`
   min-width: 700px;
-  height: fit-content;
   width: fit-content;
-  background-color:  #fff;
+  background-color: #fff;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
   padding: 30px;
   border-radius: 10px;
@@ -38,8 +36,8 @@ export const FooterButton = styled.button`
   cursor: pointer;
   margin: auto;
   ${(props) =>
-  props.disabled &&
-  css`
+    props.disabled &&
+    css`
       background-color: gray !important;
     `};
   &:hover {

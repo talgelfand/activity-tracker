@@ -37,7 +37,8 @@ const ChartForm = () => {
         display: false,
       },
       title: {
-        display: false,
+        display: true,
+        text: 'Calories burnt on the following dates',
       },
     },
     scales: {
