@@ -22,6 +22,24 @@ export const InnerBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    outline: none;
+    padding: 10px 15px;
+    color: #000;
+    &:hover,
+    &:focus {
+      border-color: #ccc;
+      outline: 1px solid green;
+      box-shadow: none;
+    }
+  }
 `
 
 export const FooterButton = styled.button`
@@ -38,8 +56,8 @@ export const FooterButton = styled.button`
   cursor: pointer;
   margin: auto;
   ${(props) =>
-  props.disabled &&
-  css`
+    props.disabled &&
+    css`
       background-color: gray !important;
     `};
   &:hover {

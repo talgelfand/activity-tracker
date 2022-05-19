@@ -34,8 +34,6 @@ export const Container = styled.div`
     border-color: #ccc;
     outline: 1px solid green;
     box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
   }
 `
 

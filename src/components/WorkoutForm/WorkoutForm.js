@@ -8,6 +8,7 @@ import fetchUserFromDatabase from '../../firebase/utils/fetchUserFromDatabase'
 import { auth } from '../../firebase/config'
 import WorkoutResult from '../WorkoutResult'
 import PersonInformationForm from '../PersonInformationForm'
+import { calculateUsersAge } from '../../utils/calculateUsersAge/calculateUsersAge'
 
 const WorkoutForm = () => {
   const currentUser = auth.currentUser
@@ -73,9 +74,11 @@ const WorkoutForm = () => {
           return res
         })
         .then((data) => {
+          const usersAge = calculateUsersAge(data.dateOfBirth.toDate())
+
           setPersonInfo({
             gender: data.gender,
-            age: new Date().getFullYear() - parseInt(data.dateOfBirth.slice(-4)),
+            age: usersAge,
             height: data.height,
             weight: data.weight,
           })

@@ -32,13 +32,17 @@ const NavBar = () => {
       <Nav>
         <NavLink to='/'>Home</NavLink>
         {currentUser && <NavLink to='/statistics'>Statistics</NavLink>}
-        {!currentUser && <NavLink to='/login' activeStyle>
-          Login
-        </NavLink>}
+        {!currentUser && (
+          <NavLink to='/login' activeStyle>
+            Login
+          </NavLink>
+        )}
         {!currentUser && <NavLink to='/signup'>SignUp</NavLink>}
-        {currentUser && <NavLink to='/' onClick={logOut}>
-          LogOut
-        </NavLink>}
+        {currentUser && (
+          <NavLink to='/' onClick={logOut}>
+            LogOut
+          </NavLink>
+        )}
       </Nav>
     </>
   )

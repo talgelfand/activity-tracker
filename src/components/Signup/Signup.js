@@ -12,7 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import { Form } from 'react-bootstrap'
 
-function Signup(onChange) {
+const Signup = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState({
     email: '',
@@ -25,14 +25,17 @@ function Signup(onChange) {
   const [errorMsg, setErrorMsg] = useState('')
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
-  const handleSubmission = async () => {
+  const handleSubmit = async () => {
+    console.log(values)
+
     if (!values.email || !values.pass || !values.gender || !values.dateOfBirth || !values.height || !values.weight) {
       setErrorMsg('NB! FILL ALL FIELDS PLEASE')
       return
     }
-    setErrorMsg('')
 
+    setErrorMsg('')
     setSubmitButtonDisabled(true)
+
     await createUserWithEmailAndPassword(auth, values.email, values.pass)
       .then(async (res) => {
         setSubmitButtonDisabled(false)
@@ -69,74 +72,71 @@ function Signup(onChange) {
     <>
       <NavBar />
       <Container>
-        <InnerBox>
-          <h1>Sign up</h1>
-          <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              placeholder='Enter email address'
-              onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Enter Password'
-              onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}>
-            </Form.Control>
-          </Form.Group>
-          <br></br>
-          <Form.Group>
-            <Form.Label>Gender</Form.Label>
-            <Form.Select
-              onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}>
-              <option selected disabled hidden>Choose your gender</option>
-              {genders.map(option => (
-                <option key={option.name}>{option.name}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Date of birth</Form.Label>
-            <DatePicker
-              showMonthDropdown
-              showYearDropdown
-              dropdownMode="select"
-              dateFormat="dd/MM/yyyy"
-              placeholderText='Enter your date of birth'
-              calendarStartDay={1}
-              selected={values.date}
-              onChange={(date) => setValues((prev) => ({ ...prev, date: date }))}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Height</Form.Label>
-            <Form.Control
-              placeholder='185'
-              onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))}>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Weight</Form.Label>
-            <Form.Control
-              placeholder='80'
-              onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))}>
-            </Form.Control>
-          </Form.Group>
-          <Footer>
-            <Error>{errorMsg}</Error>
-            <FooterButton onClick={handleSubmission} disabled={submitButtonDisabled}>
-              Sign up
-            </FooterButton>
-            <p>
-              Already have an account?{' '}
-              <span>
-                <StyledLink to='/Login'>Log in</StyledLink>
-              </span>
-            </p>
-          </Footer>
-        </InnerBox>
+        <Form onSubmit={handleSubmit}>
+          <InnerBox>
+            <h1>Sign up</h1>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                placeholder='Enter email address'
+                onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Enter Password'
+                onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+              />
+            </Form.Group>
+            <hr />
+            <Form.Group>
+              <Form.Label>Gender</Form.Label>
+              <Form.Select onChange={(event) => setValues((prev) => ({ ...prev, gender: event.target.value }))}>
+                <option selected disabled hidden>
+                  Choose your gender
+                </option>
+                {genders.map((option) => (
+                  <option key={option.name}>{option.name}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Date of birth</Form.Label>
+              <DatePicker
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
+                dateFormat='dd/MM/yyyy'
+                placeholderText='Enter your date of birth'
+                calendarStartDay={1}
+                selected={values.dateOfBirth}
+                onChange={(date) => setValues((prev) => ({ ...prev, dateOfBirth: date }))}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Height</Form.Label>
+              <Form.Control placeholder='185' onChange={(event) => setValues((prev) => ({ ...prev, height: event.target.value }))} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Weight</Form.Label>
+              <Form.Control placeholder='80' onChange={(event) => setValues((prev) => ({ ...prev, weight: event.target.value }))} />
+            </Form.Group>
+            <Footer>
+              <Error>{errorMsg}</Error>
+              <FooterButton onClick={handleSubmit} disabled={submitButtonDisabled}>
+                Sign up
+              </FooterButton>
+              <p>
+                Already have an account?{' '}
+                <span>
+                  <StyledLink to='/Login'>Log in</StyledLink>
+                </span>
+              </p>
+            </Footer>
+          </InnerBox>
+        </Form>
       </Container>
     </>
   )

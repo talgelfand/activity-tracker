@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import NavBar from '../../components/NavBar'
 
-import InputControl from '../InputControl/InputControl'
 import { auth } from '../../firebase/config'
 
-import { FooterButton, InnerBox, StyledLink, Footer , Container, Error} from './Login.style'
+import { FooterButton, InnerBox, StyledLink, Footer, Container, Error } from './Login.style'
+import { Form } from 'react-bootstrap'
 
 function Login() {
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ function Login() {
   const [errorMsg, setErrorMsg] = useState('')
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false)
 
-  const handleSubmission = () => {
+  const handleSubmit = () => {
     if (!values.email || !values.pass) {
       setErrorMsg('Fill all fields')
       return
@@ -42,33 +42,38 @@ function Login() {
     <>
       <NavBar />
       <Container>
-        <InnerBox>
-          <h1>Login</h1>
-          <InputControl
-            label='Email'
-            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-            placeholder='Enter email address'
-          />
-          <InputControl
-            label='Password'
-            type='password'
-            onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
-            placeholder='Enter Password'
-          />
-
-          <Footer>
-            <Error>{errorMsg}</Error>
-            <FooterButton disabled={submitButtonDisabled} onClick={handleSubmission}>
-              Login
-            </FooterButton>
-            <p>
-              Don't have an account?{' '}
-              <span>
-               <StyledLink to='/signup'>Sign up</StyledLink>
-            </span>
-            </p>
-          </Footer>
-        </InnerBox>
+        <Form onSubmit={handleSubmit}>
+          <InnerBox>
+            <h1>Login</h1>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                placeholder='Enter email address'
+                onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Enter password'
+                onChange={(event) => setValues((prev) => ({ ...prev, pass: event.target.value }))}
+              />
+            </Form.Group>
+            <Footer>
+              <Error>{errorMsg}</Error>
+              <FooterButton disabled={submitButtonDisabled} onClick={handleSubmit}>
+                Login
+              </FooterButton>
+              <p>
+                Don't have an account?{' '}
+                <span>
+                  <StyledLink to='/signup'>Sign up</StyledLink>
+                </span>
+              </p>
+            </Footer>
+          </InnerBox>
+        </Form>
       </Container>
     </>
   )
